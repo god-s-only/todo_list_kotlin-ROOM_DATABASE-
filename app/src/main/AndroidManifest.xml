@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name="com.example.todolist.hiltandroid.TodoApplication"
         android:allowBackup="true"
-        android:name=".TodoApp"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"

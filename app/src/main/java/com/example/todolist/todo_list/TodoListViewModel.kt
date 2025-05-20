@@ -6,11 +6,13 @@ import com.example.todolist.data.Todo
 import com.example.todolist.data.TodoRepository
 import com.example.todolist.util.Routes
 import com.example.todolist.util.UIEvent
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class TodoListViewModel @Inject constructor(
     private val repository: TodoRepository
 ): ViewModel() {

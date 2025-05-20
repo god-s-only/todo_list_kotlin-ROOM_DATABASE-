@@ -1,7 +1,8 @@
-package com.example.todolist
+package com.example.todolist.hiltandroid
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class TodoApp: Application()
+class TodoApplication: Application(){
+}
