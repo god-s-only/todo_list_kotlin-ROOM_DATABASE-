@@ -1,5 +1,6 @@
 package com.example.todolist
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,37 +12,51 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.todolist.add_edit_todo.AddEditTodoScreen
+import com.example.todolist.todo_list.TodoListScreen
 import com.example.todolist.ui.theme.ToDoListTheme
+import com.example.todolist.util.Routes
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             ToDoListTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                Scaffold(modifier = Modifier.fillMaxSize()) {
+                    val navController = rememberNavController()
+                    NavHost(navController = navController, startDestination = Routes.TODO_LIST){
+                        composable(Routes.TODO_LIST) {
+                            TodoListScreen({
+                                navController.navigate(it.route)
+                            })
+                        }
+                        composable(
+                            route = Routes.ADD_EDIT_TODO + "?todoId={todoId}",
+                            arguments = listOf(
+                                navArgument("todoId") {
+                                    type = NavType.IntType
+                                    defaultValue = -1
+                                }
+                            )
+                        ) {
+                            AddEditTodoScreen({
+                                navController.popBackStack()
+                            })
+                        }
+                    }
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ToDoListTheme {
-        Greeting("Android")
-    }
-}

@@ -2,7 +2,6 @@ package com.example.todolist.di
 
 import android.app.Application
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.example.todolist.data.TodoDatabase
 import com.example.todolist.data.TodoRepository
 import com.example.todolist.data.TodoRepositoryImpl
